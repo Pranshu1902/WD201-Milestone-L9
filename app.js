@@ -15,7 +15,7 @@ app.get("/todos", async function (request, response) {
     console.log(todos);
     const d = new Date().toLocaleDateString("en-CA");
     const overdue = await Todo.findAll({
-      where: { dueDate: { [Op.lt]: d } },
+      where: { dueDate: { [Op.lt]: d }, completed: false },
       order: [["id", "ASC"]],
     });
     const overdueComplete = await Todo.findAll({
