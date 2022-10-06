@@ -11,6 +11,10 @@ app.use(bodyParser.json());
 app.get("/todos", async function (request, response) {
   console.log("Processing list of all Todos ...");
   try {
+    // create a todo
+    const date = new Date();
+    await Todo.addTodo({ title: "Test", dueDate: date, completed: false });
+
     const todos = await Todo.findAll();
     console.log(todos);
     const d = new Date().toLocaleDateString("en-CA");
