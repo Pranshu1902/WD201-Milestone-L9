@@ -3,34 +3,52 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home Todo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>TO-DO Manager</title>
     <link rel="stylesheet" href="./css/style.css" />
   </head>
-  <body>
-    <%- include('header.ejs') %> 
+  <body class="p-4">
+    <div class="grid grid-cols-6">
+      <div class="col-start-3 col-span-2"><%- include('header.ejs') %></div>
+    </div>
 
-    <table>
+    <form class="flex justify-center">
+      <div class="flex gap-2 py-4 w-2/3">
+        <div class="flex-auto w-64">
+          <input
+            type="text"
+            class="border border-gray-300 text-gray-900 text-sm rounded w-full p-2"
+            placeholder="What's next?"
+            autofocus
+            required
+          />
+        </div>
+        <div class="flex-auto w-32">
+          <input
+            type="date"
+            class="border border-gray-300 text-gray-900 text-sm rounded w-full p-2 leading-4"
+          />
+        </div>
+        <div class="flex-none">
+          <button
+            type="submit"
+            class="text-white bg-green-600 hover:bg-green-700 font-medium rounded text-sm px-5 py-2 mr-2 mb-2"
+          >
+            Add
+          </button>
+        </div>
+      </div>
+    </form>
 
-    <!-- Over due -->
-    <p><b style="font-size: 25px;">Overdue</b> <%= overdueComplete.length %> / <%= overdue.length %></p>
-    <% for (var i=0; i<overdue.length; i++) { %>
-    <td style="display: flex; flex-wrap: wrap;"><input type="checkbox" checked> <p style="font-size: 15px;"><%= overdue[i].title%> <%= overdue[i].dueDate.toLocaleString("en-us", { month: "short" }) %></p></td>
-    <% } %>
+    <div class="mt-2">
+      <h5>Overdue</h5>
+      <%- include('todo.ejs') %>
+      <h5>Due Today</h5>
+      <%- include('todo.ejs') %>
+      <h5>Due Later</h5>
+      <%- include('todo.ejs') %>
+    </div>
 
-    <!-- Due Today -->
-    <p><b style="font-size: 25px;">Due Today</b> <%=todayComplete.length%> / <%=today.length%></p>
-    <% for (var i=0; i<today.length; i++) { %>
-      <td style="display: flex; flex-wrap: wrap;"><input type="checkbox" value=<%today[i].completed%>> <p style="font-size: 15px;"><%= today[i].title%></p></td>>
-    <% } %>
-
-    <!-- Due Later -->
-    <b style="font-size: 25px;">Due Later</b> <%=laterComplete.length%> / <%=later.length%></p>
-    <% for (var i=0; i<later.length; i++) { %>
-      <td style="display: flex; flex-wrap: wrap;"><input type="checkbox" value=<%later[i].completed%>> <p style="font-size: 15px;"><%= later[i].title%> <%= later[i].dueDate%></p></td>
-    <% } %>
-
-  </table>
-
-    <%- include('footer.ejs') %> 
+    <div class="flex justify-center"><%- include('footer.ejs') %></div>
   </body>
 </html>
