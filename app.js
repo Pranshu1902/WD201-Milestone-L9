@@ -133,8 +133,29 @@ app.delete("/todos/:id", async function (request, response) {
 });
 
 app.get("/", async (request, response) => {
-  app.locals.tasks = [{ title: "taks 1" }, { title: "task 2" }];
   const todos = await Todo.findAll();
+  const d = new Date().toLocaleDateString("en-CA");
+  const overdue = await Todo.findAll({
+    where: { dueDate: { [Op.lt]: d }, completed: false },
+    order: [["id", "ASC"]],
+  });
+  const later = await Todo.findAll({
+    where: { dueDate: { [Op.gt]: d } },
+  });
+  const today = await Todo.findAll({
+    where: { dueDate: { [Op.eq]: d } },
+  });
+  const complete = await Todo.findAll({
+    where: { completed: true },
+  });
+
+  app.locals.tasks = todos;
+  app.locals.overdue = overdue;
+  app.locals.later = later;
+  app.locals.today = today;
+  app.locals.complete = complete;
+  app.locals.csrfToken = request.csrfToken();
+
   response.render("index", {
     todos,
     csrfToken: request.csrfToken(),
