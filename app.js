@@ -20,10 +20,6 @@ app.use(express.static(path.join(__dirname, "public")));
 app.get("/todos", async function (request, response) {
   console.log("Processing list of all Todos ...");
   try {
-    // create a todo
-    const date = new Date();
-    await Todo.addTodo({ title: "Test", dueDate: date, completed: false });
-
     const todos = await Todo.findAll();
     const d = new Date().toLocaleDateString("en-CA");
     const overdue = await Todo.findAll({
@@ -135,10 +131,6 @@ app.delete("/todos/:id", async function (request, response) {
 app.get("/", async function (request, response) {
   console.log("Processing list of all Todos ...");
   try {
-    // create a todo
-    const date = new Date();
-    await Todo.addTodo({ title: "Test", dueDate: date, completed: false });
-
     const todos = await Todo.findAll();
     const d = new Date().toLocaleDateString("en-CA");
     const overdue = await Todo.findAll({
