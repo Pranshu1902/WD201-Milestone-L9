@@ -96,9 +96,9 @@
             <input
               id="todo-checkbox-<%= overdue[i].id %>"
               type="checkbox"
-              <%=overdue[i].completed ? "checked" : "" %>
-              onclick="updateTodo(<%= overdue[i].id %> )"
               class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300"
+              onclick="updateTodo(<%= overdue[i].id %> )"
+              <%=overdue[i].completed ? "checked" : "" %>
             />
             <label
               for="todo-checkbox-<%= overdue[i].id %>"
@@ -140,9 +140,9 @@
             <input
               id="todo-checkbox-<%= today[i].id %>"
               type="checkbox"
-              <%=today[i].completed ? "checked" : "" %>
-              onclick="updateTodo(<%= today[i].id %> )"
               class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300"
+              onclick="updateTodo(<%= today[i].id %> )"
+              <%=today[i].completed ? "checked" : "" %>
             />
             <label
               for="todo-checkbox-<%= today[i].id %>"
@@ -184,9 +184,9 @@
             <input
               id="todo-checkbox-<%= later[i].id %>"
               type="checkbox"
-              <%=later[i].completed ? "checked" : "" %>
-              onclick="updateTodo(<%= later[i].id %> )"
               class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300"
+              onclick="updateTodo(<%= later[i].id %> )"
+              <%=later[i].completed ? "checked" : "" %>
             />
             <label
               for="todo-checkbox-<%= later[i].id %>"
@@ -228,8 +228,8 @@
             <input
               id="todo-checkbox-<%= complete[i].id %>"
               type="checkbox"
-              onclick="updateTodo(<%= complete[i].id %> )"
               class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300"
+              onclick="updateTodo(<%= complete[i].id %> )"
               <%= complete[i].completed ? "checked" : "" %>
             />
             <label
