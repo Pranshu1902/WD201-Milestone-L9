@@ -24,7 +24,8 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     setCompletionStatus() {
-      return this.update({ completed: !this.completed });
+      const prev = this.completed;
+      return this.update({ completed: !prev });
     }
   }
   Todo.init(

@@ -228,9 +228,9 @@
             <input
               id="todo-checkbox-<%= complete[i].id %>"
               type="checkbox"
-              <%=complete[i].completed ? "checked" : "" %>
               onclick="updateTodo(<%= complete[i].id %> )"
               class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300"
+              <%= complete[i].completed ? "checked" : "" %>
             />
             <label
               for="todo-checkbox-<%= complete[i].id %>"

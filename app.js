@@ -85,7 +85,7 @@ app.get("/todos/:id", async function (request, response) {
 app.post("/todos", async function (request, response) {
   console.log("Creating new Todo: ", request.body);
   try {
-    const todo = await Todo.addTodo(request.body);
+    await Todo.addTodo(request.body);
     return response.redirect("/"); // response.json(todo);
   } catch (error) {
     console.log(error);
@@ -141,8 +141,14 @@ app.get("/", async function (request, response) {
     //   where: { dueDate: { [Op.lt]: d }, completed: true },
     // });
     const later = await Todo.findAll({
-      where: { dueDate: { [Op.gt]: d, completed: false } },
+      where: { dueDate: { [Op.gt]: d }, completed: false },
     });
+
+    const te = await Todo.findAll({
+      where: { title: "1" },
+    });
+
+    console.log(te);
     // const laterComplete = await Todo.findAll({
     //   where: { dueDate: { [Op.gt]: d }, completed: true },
     // });
