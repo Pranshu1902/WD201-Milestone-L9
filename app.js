@@ -141,13 +141,13 @@ app.get("/", async function (request, response) {
     //   where: { dueDate: { [Op.lt]: d }, completed: true },
     // });
     const later = await Todo.findAll({
-      where: { dueDate: { [Op.gt]: d } },
+      where: { dueDate: { [Op.gt]: d, completed: false } },
     });
     // const laterComplete = await Todo.findAll({
     //   where: { dueDate: { [Op.gt]: d }, completed: true },
     // });
     const today = await Todo.findAll({
-      where: { dueDate: { [Op.eq]: d } },
+      where: { dueDate: { [Op.eq]: d, completed: false } },
     });
     // const todayComplete = await Todo.findAll({
     //   where: { dueDate: { [Op.eq]: d }, completed: true },
