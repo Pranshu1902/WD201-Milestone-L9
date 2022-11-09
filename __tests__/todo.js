@@ -23,6 +23,7 @@ describe("List the todo items", function () {
     server.close();
   });
 
+  // add todo test
   test("create a todo", async () => {
     const res = await agent.get("/");
     const csrfToken = extractCsrfToken(res);
@@ -36,6 +37,7 @@ describe("List the todo items", function () {
     expect(response.statusCode).toBe(302);
   });
 
+  // mark todo as complete test
   test("Mark a todo as complete", async () => {
     let res = await agent.get("/");
     let csrfToken = extractCsrfToken(res);
@@ -67,6 +69,7 @@ describe("List the todo items", function () {
     expect(parsedUpdateResponse.completed).toBe(true);
   });
 
+  // update todo test
   test("Update a todo", async () => {
     let res = await agent.get("/");
     let csrfToken = extractCsrfToken(res);
@@ -91,9 +94,7 @@ describe("List the todo items", function () {
     const markCompleteResponse = await agent
       .put(`/todos/${latestTodo.id}`)
       .send({
-        title: "Buy milk",
-        dueDate: new Date().toISOString(),
-        completed: false,
+        completed: true,
         _csrf: csrfToken,
       });
 
@@ -101,6 +102,7 @@ describe("List the todo items", function () {
     expect(parsedUpdateResponse.completed).toBe(true);
   });
 
+  // delete todo test
   test("Delete todo using Id", async () => {
     let res = await agent.get("/");
     let csrfToken = extractCsrfToken(res);
