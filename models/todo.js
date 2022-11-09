@@ -22,6 +22,14 @@ module.exports = (sequelize, DataTypes) => {
       return this.destroy({ where: { id } });
     }
 
+    static async update({ title, dueDate, completed }) {
+      return this.update({
+        title: title,
+        dueDate: dueDate,
+        completed: completed,
+      });
+    }
+
     static async getDueToday() {
       const d = new Date().toLocaleDateString("en-CA");
       const today = await this.findAll({
