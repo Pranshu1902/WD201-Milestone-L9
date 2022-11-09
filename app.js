@@ -21,45 +21,19 @@ app.get("/todos", async function (request, response) {
   console.log("Processing list of all Todos ...");
   try {
     const todos = await Todo.findAll();
-    const d = new Date().toLocaleDateString("en-CA");
-    const overdue = await Todo.findAll({
-      where: { dueDate: { [Op.lt]: d }, completed: false },
-      order: [["id", "ASC"]],
-    });
-    // const overdueComplete = await Todo.findAll({
-    //   where: { dueDate: { [Op.lt]: d }, completed: true },
-    // });
-    const later = await Todo.findAll({
-      where: { dueDate: { [Op.gt]: d } },
-    });
-    // const laterComplete = await Todo.findAll({
-    //   where: { dueDate: { [Op.gt]: d }, completed: true },
-    // });
-    const today = await Todo.findAll({
-      where: { dueDate: { [Op.eq]: d } },
-    });
-    // const todayComplete = await Todo.findAll({
-    //   where: { dueDate: { [Op.eq]: d }, completed: true },
-    // });
-
-    const complete = await Todo.findAll({
-      where: { completed: true },
-    });
-
-    app.locals.tasks = todos;
-    app.locals.overdue = overdue;
-    // app.locals.overdueComplete = overdueComplete;
-    app.locals.later = later;
-    // app.locals.laterComplete = laterComplete;
-    app.locals.today = today;
-    // app.locals.todayComplete = todayComplete;
-
-    app.locals.complete = complete;
-
-    app.locals.csrfToken = request.csrfToken();
+    const overdue = await Todo.getOverDue();
+    const later = await Todo.getDueLater();
+    const today = await Todo.getDueToday();
+    const complete = await Todo.getCompleted();
+    const tasks = todos;
 
     if (request.accepts("html")) {
       response.render("index", {
+        tasks,
+        overdue,
+        later,
+        today,
+        complete,
         csrfToken: request.csrfToken(),
       });
     } else {
@@ -144,57 +118,11 @@ app.get("/", async function (request, response) {
   console.log("Processing list of all Todos ...");
   try {
     const todos = await Todo.findAll();
-    const d = new Date().toLocaleDateString("en-CA");
-
     const overdue = await Todo.getOverDue();
-
-    // const overdue = await Todo.findAll({
-    //   where: { dueDate: { [Op.lt]: d }, completed: false },
-    //   order: [["id", "ASC"]],
-    // });
-
-    // const overdueComplete = await Todo.findAll({
-    //   where: { dueDate: { [Op.lt]: d }, completed: true },
-    // });
-
     const later = await Todo.getDueLater();
-
-    // const later = await Todo.findAll({
-    //   where: { dueDate: { [Op.gt]: d }, completed: false },
-    // });
-
-    // const laterComplete = await Todo.findAll({
-    //   where: { dueDate: { [Op.gt]: d }, completed: true },
-    // });
-
-    // const today = await Todo.findAll({
-    //   where: { dueDate: { [Op.eq]: d }, completed: false },
-    // });
-
     const today = await Todo.getDueToday();
-    // const todayComplete = await Todo.findAll({
-    //   where: { dueDate: { [Op.eq]: d }, completed: true },
-    // });
-
     const complete = await Todo.getCompleted();
-
-    // const complete = await Todo.findAll({
-    //   where: { completed: true },
-    // });
-
     const tasks = todos;
-
-    // app.locals.tasks = todos;
-    // app.locals.overdue = overdue;
-    // // app.locals.overdueComplete = overdueComplete;
-    // app.locals.later = later;
-    // // app.locals.laterComplete = laterComplete;
-    // app.locals.today = today;
-    // // app.locals.todayComplete = todayComplete;
-
-    // app.locals.complete = complete;
-
-    // app.locals.csrfToken = request.csrfToken();
 
     if (request.accepts("html")) {
       response.render("index", {
