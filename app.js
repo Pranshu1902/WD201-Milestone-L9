@@ -83,7 +83,7 @@ app.put("/todos/:id", async function (request, response) {
   console.log("We have to update a Todo with ID: ", request.params.id);
   const todo = await Todo.findByPk(request.params.id);
   try {
-    const updatedTodo = await todo.setCompletionStatus();
+    const updatedTodo = await todo.update(request.body);
     return response.json(updatedTodo);
   } catch (error) {
     console.log(error);
