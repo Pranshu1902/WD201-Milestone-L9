@@ -60,8 +60,9 @@ describe("List the todo items", function () {
     csrfToken = extractCsrfToken(res);
 
     const markCompleteResponse = await agent
-      .put(`/todos/${latestTodo.id}/markAsCompleted`)
+      .put(`/todos/${latestTodo.id}`)
       .send({
+        completed: true,
         _csrf: csrfToken,
       });
 
