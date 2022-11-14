@@ -57,9 +57,8 @@ module.exports = (sequelize, DataTypes) => {
       return this.update({ completed: true });
     }
 
-    setCompletionStatus() {
-      const prev = this.completed;
-      return this.update({ completed: !prev });
+    setCompletionStatus(status) {
+      return this.update({ completed: status });
     }
   }
   Todo.init(
